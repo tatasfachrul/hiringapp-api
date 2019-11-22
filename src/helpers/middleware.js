@@ -15,7 +15,7 @@ const checkToken = (req, res, next) => {
 
   if (!token) {
     result = {
-      Msg: "Please login"
+      Msg: "Please login or register"
     }
     response(res, 400, result)
   }
