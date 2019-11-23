@@ -1,20 +1,13 @@
 <br />
 <p align="center">
-    <img src="https://www.archer.com.mt/wp-content/uploads/Node.png" alt="Logo" width="80" height="80">
+    <img src="https://miro.medium.com/max/365/1*d2zLEjERsrs1Rzk_95QU9A.png" alt="Logo" width="80" height="80">
  
 
-  <h3 align="center">HireMe.lah!</h3>
-
-  <p align="center">
-  Backend for Application Hiring Engineer
-    <br />
+  <h3 align="center">Hiring APP RESTFul API using ExpressJs</h3>
 
   </p>
 </p>
 
-# Hiring APP RESTFul API using ExpressJs
-
----
 ## Description
 
 
