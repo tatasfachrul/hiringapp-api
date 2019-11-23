@@ -19,7 +19,7 @@
 * [Usage](#usage)
 
 ---
-## About The Project
+## Introduction
 
 this is a backend system that will be developed into a real application, this application is made with the purpose of making it easier for companies / recruitment partners to find great software engineer
 
