@@ -21,7 +21,7 @@
 ---
 ## Introduction
 
-this is a backend system that will be developed into a real application, this application is made with the purpose of making it easier for companies / recruitment partners to find great software engineer
+This is a RESTFul API for backend system that will be developed into a real application, this application is made with the purpose of making it easier for companies / recruitment partners to find great software engineer
 
 ### Built With
 This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
