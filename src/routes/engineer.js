@@ -8,9 +8,8 @@ const { addEngineer,
         findEngByName, 
         findEngById, 
         findEngBySkill, 
-        searchEng, 
-        sortEng,
-        paginationEng } = require('../controller/engineer')
+        getSearch, 
+ } = require('../controller/engineer')
 
 const { checkToken } = require('../helpers/middleware');        
 
@@ -22,8 +21,6 @@ Route
   .get('/name/:nameEng', checkToken, findEngByName)
   .get('/id/:idEng', checkToken, findEngById)
   .get('/skill/:skillEng',checkToken, findEngBySkill)
-  .get('/search', checkToken, searchEng)
-  .get('/sort', checkToken, sortEng)
-  .get('/page', checkToken, paginationEng)
+  .get('/search', checkToken, getSearch)
     
 module.exports = Route

@@ -69,37 +69,5 @@ module.exports = {
       console.log(err)
     })
   },
-  searchCompany: (req, res) => {
-    const col = req.query.col
-    const query = req.query.query
-    companyModel.searchCompany(col, query)
-    .then(result => {
-      response(res, 200, result)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  },
-  sortCompany: (req, res) => {
-    const col = req.query.col
-    const sort = req.query.sort
-    companyModel.sortCompany(col, sort)
-    .then(result => {
-      response(res, 200, result)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  },
-  pageCompany: (req, res) => {
-    const limit = req.query.limit
-    const offset = req.query.offset
-    companyModel.pageCompany(limit, offset)
-    .then(result => {
-      response(res, 200, result)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
+  
 }

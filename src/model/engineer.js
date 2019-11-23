@@ -89,11 +89,9 @@ module.exports = {
       })
     })
   },
-  searchEng: (nameEng, skillEng) => {
+  searchEngineer: (engName, skillName, sortParam, sortChoose, limit, offset) => {
     return new Promise((resolve, reject) => {
-      const nameEngi = `%${nameEng}%`
-      const skillEngi = `%${skillEng}%`
-      pool.query(`SELECT * FROM v_engineer WHERE name_eng LIKE ? OR name_skill LIKE ?`, [nameEngi, skillEngi], (err, result) => {
+      pool.query(`SELECT * FROM v_engineer WHERE name_eng LIKE '%${engName}%' OR name_skill LIKE '%${skillName}%' ORDER BY ${sortParam} ${sortChoose} LIMIT ${limit} OFFSET ${offset}`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -102,27 +100,5 @@ module.exports = {
       })
     })
   },
-  sortEng: (colName,sort) => {
-    return new Promise((resolve, reject) => {
-      pool.query(`SELECT * FROM v_engineer ORDER BY ${colName} ${sort}`, (err, result) => {
-        if (!err) {
-          resolve(result)
-        } else {
-          reject(new Error(err))
-        }
-      })
-    })
-  },
-  paginationEng: (limit, offset) => {
-    return new Promise((resolve, reject) => {
-      pool.query(`SELECT * FROM v_engineer LIMIT ${limit} OFFSET ${offset}`, (err, result) => {
-        if (!err) {
-          resolve(result)
-        } else {
-          reject(new Error(err))
-        }
-      })
-    })
-  }
   
 }
