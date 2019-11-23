@@ -9,8 +9,6 @@ const { proLogin, proLogout } = require('../controller/login')
 
 const { checkToken } = require('../helpers/middleware');  
 
-
-
 const validation = [
     oneOf([
         check('username')

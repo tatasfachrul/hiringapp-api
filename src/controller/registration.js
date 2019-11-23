@@ -2,7 +2,6 @@ require('dotenv/config')
 
 const uuid = require('uuid/v4')
 const bcrypt = require('bcryptjs')
-// const expressValidator = require('express-validator')
 const { check, validationResult } = require('express-validator')
 const moment = require('moment')
 const jwt = require('jsonwebtoken')

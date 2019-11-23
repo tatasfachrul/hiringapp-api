@@ -7,12 +7,7 @@ const { response } = require('../helpers/helpers')
 
 const checkToken = (req, res, next) => {
   const token = req.headers['x-access-token']
-  //  || req.headers['authorization'] // Express headers are auto converted to lowercase
-  // if (token.startsWith('Bearer ')) {
-  //   // Remove Bearer from string
-  //   token = token.slice(7, token.length)
-  // }
-
+  
   if (!token) {
     result = {
       Msg: "Please login or register"

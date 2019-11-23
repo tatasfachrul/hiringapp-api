@@ -9,7 +9,6 @@ const PORT = process.env.PORT
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: false }))
 server.use(morgan('dev'))
-// server.use(expressValidator())
 
 server.listen(PORT, () => {
   console.log(`This server is running on port ${PORT}`)

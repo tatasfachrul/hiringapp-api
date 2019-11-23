@@ -9,5 +9,4 @@ Route
   .put('/:showcaseId',checkToken, updateShowcase)
   .delete('/:showcaseId',checkToken, deleteShowcase)
   
-
 module.exports = Route  

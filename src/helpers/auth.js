@@ -17,17 +17,7 @@ module.exports = {
         let updateDt = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
         
         loginModel.saveToken(tokenDb, UserData[0].id_user, updateDt)
-        // console.log(UserData[0].id_user)
         
-        // const iduser = UserData[0].id_user
-        // loginModel.getTokenDb(iduser)
-        // .then(result => {
-        //   console.log(result)
-        //   // response(res, 200, result)
-        // })
-        // .catch(err => {
-        //   console.log(err)
-        // })
         return({
           success: true,
           message: 'Authentication successful!',
@@ -44,5 +34,3 @@ module.exports = {
     }
   }
 }
-
-// export default ValidateLogin
