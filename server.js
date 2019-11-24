@@ -4,7 +4,9 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const { response } = require('./src/helpers/helpers')
 const route = require('./src/index');
-const PORT = process.env.PORT
+const PORT = process.env.PORT 
+const express = require('express')
+const cloudinaryConfig = require('./src/config/cloudinary');
 
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: false }))
@@ -19,6 +21,7 @@ server.get('/', (req, res) => {
 })
 
 server.use('/', route)
+server.use('/uploads', express.static('src/uploads'))
 
 module.exports = server
 
