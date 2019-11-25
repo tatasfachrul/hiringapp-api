@@ -1,10 +1,9 @@
 const express = require('express')
 const Route = express.Router()
-// const multer = require('multer');
 const { getCompany, addCompany, updateCompany, deleteCompany, findCompanyById } = require('../controller/company')
 const { checkToken } = require('../helpers/middleware');
 const { multerUploads } = require('../helpers/multer');
-const { uploader, cloudinaryConfig } = require('../config/cloudinary');
+const { cloudinaryConfig } = require('../config/cloudinary');
 
 Route
   .use('*', cloudinaryConfig)

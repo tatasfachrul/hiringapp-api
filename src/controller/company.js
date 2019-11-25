@@ -19,7 +19,8 @@ module.exports = {
 
     if (req.file) {
       const file = dataUri(req).content;
-      uploader.upload(file).then((result) => {
+      uploader.upload(file,{folder: "hiringapp/company/logo"}
+    ).then((result) => {
        
         const { name, location, description } = req.body
         const data = {
@@ -32,7 +33,6 @@ module.exports = {
         companyModel.addCompany(data)
           .then(result => {
             response(res, 200, result)
-            console.log(result.insertId) //get id AI
           })
           .catch(err => {
             response(res, 200, result)
@@ -65,16 +65,23 @@ module.exports = {
         console.log(err)
       })
   },
-  deleteCompany: (req, res) => {
+  deleteCompany: async (req, res) => {
     const companyId = req.params.companyId
+    
+    try {
+      let getId = await companyModel.findCompanyById(companyId)
+      const logo = getId[0].logo
+      const filename = logo.split('/').pop().split('.')[0]
+      const public_id = 'hiringapp/company/logo/'+filename
+      uploader.destroy(public_id,(error, ress) => {
+        console.log(ress); 
+      })
 
-    companyModel.deleteCompany(companyId)
-      .then(result => {
-        response(res, 200, result)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      let delCompany = await companyModel.deleteCompany(companyId)
+      response(res, 200, delCompany)
+    } catch (error) {
+      console.log(error);
+    }
   },
   findCompanyById: (req, res) => {
     const companyId = req.params.idCompany
