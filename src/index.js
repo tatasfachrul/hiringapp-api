@@ -8,6 +8,7 @@ const engineer = require('./routes/engineer')
 const skill = require('./routes/skill')
 const showcase = require('./routes/showcase')
 const engskill = require('./routes/engskill')
+const hire = require('./routes/hire')
 const cloudinaryConfig = require('./config/cloudinary');
 
 Route
@@ -18,6 +19,7 @@ Route
   .use('/skill', skill)
   .use('/showcase', showcase)
   .use('/engskill', engskill)
+  .use('/hire', hire)
   .use('/uploads', express.static('uploads'))
   // .use('*', cloudinaryConfig);
   

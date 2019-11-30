@@ -8,8 +8,8 @@ const { cloudinaryConfig } = require('../config/cloudinary');
 Route
   .use('*', cloudinaryConfig)
   .get('/', checkToken, getCompany)
-  .post('/', checkToken, multerUploads.single('logo'), addCompany)
-  .put('/:companyId', checkToken, updateCompany)
+  .post('/', addCompany)
+  .put('/:companyId', updateCompany)
   .delete('/:companyId', checkToken, deleteCompany)
   .get('/id/:idCompany', checkToken, findCompanyById)
 

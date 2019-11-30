@@ -5,11 +5,10 @@ const { response } = require('../helpers/helpers')
 
 module.exports = {
   addEngSkill: (req, res) => {
-    const { id_eng, id_skill, level } = req.body
+    const { id_eng, id_skill } = req.body
     const data =  {
       id_eng,
-      id_skill,
-      level
+      id_skill
     }
     engskillModel.addEngSkill(data)
       .then(result => {

@@ -4,6 +4,7 @@ const companyModel = require('../model/company')
 const { response } = require('../helpers/helpers')
 const { uploader } = require('../config/cloudinary');
 const { dataUri } = require('../helpers/multer');
+const jwt_decode = require('jwt-decode')
 
 module.exports = {
   getCompany: (req, res) => {
@@ -16,36 +17,42 @@ module.exports = {
       })
   },
   addCompany: (req, res) => {
+    const token = req.headers['x-access-token']
+    const decoded = jwt_decode(token);
+    const idUser = decoded.id_user
 
-    if (req.file) {
-      const file = dataUri(req).content;
-      uploader.upload(file,{folder: "hiringapp/company/logo"}
-    ).then((result) => {
-       
-        const { name, location, description } = req.body
-        const data = {
-          name,
-          logo: result.url,
-          location,
-          description
-        }
-
-        companyModel.addCompany(data)
-          .then(result => {
-            response(res, 200, result)
-          })
-          .catch(err => {
-            response(res, 200, result)
-          })
-
-      })
-      .catch((err) => res.status(400).json({
-        messge: 'someting went wrong while processing your request',
-        data: {
-          err
-        }
-      }))
+    const { name, location, description } = req.body
+    const data = {
+      name,
+      logo: null,
+      location,
+      description,
+      id_user: idUser,
     }
+
+    companyModel.addCompany(data)
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        response(res, 200, result)
+      })
+      
+    // if (req.file) {
+    //   const file = dataUri(req).content;
+    //   uploader.upload(file,{folder: "hiringapp/company/logo"}
+    // ).then((result) => {
+       
+        
+
+    //   })
+    //   .catch((err) => res.status(400).json({
+    //     messge: 'someting went wrong while processing your request',
+    //     data: {
+    //       err
+    //     }
+    //   }))
+    // }
   },
 
   updateCompany: (req, res) => {
@@ -94,5 +101,6 @@ module.exports = {
         console.log(err)
       })
   },
+  
 
 }

@@ -1,6 +1,7 @@
 const express = require('express')
 const Route = express.Router()
 
+
 const { addEngineer, 
         getEngineer, 
         updateEngineer, 
@@ -9,18 +10,22 @@ const { addEngineer,
         findEngById, 
         findEngBySkill, 
         getSearch, 
+        photoEngineer
  } = require('../controller/engineer')
-
+const { multerUploads } = require('../helpers/multer');
+const { cloudinaryConfig } = require('../config/cloudinary');
 const { checkToken } = require('../helpers/middleware');        
 
 Route
-  .post('/', checkToken, addEngineer)
-  .get('/', checkToken, getEngineer)
-  .put('/:engineerId', checkToken, updateEngineer)
-  .delete('/:engineerId', checkToken, deleteEngineer)
-  .get('/name/:nameEng', checkToken, findEngByName)
-  .get('/id/:idEng', checkToken, findEngById)
-  .get('/skill/:skillEng',checkToken, findEngBySkill)
-  .get('/search', checkToken, getSearch)
+  .use('*', cloudinaryConfig)
+  .post('/', addEngineer)
+  .get('/', getEngineer)
+  .patch('/:engineerId', multerUploads.single('photo'),photoEngineer)
+  .put('/:engineerId', updateEngineer)
+  .delete('/:engineerId', deleteEngineer)
+  .get('/name/:nameEng', findEngByName)
+  .get('/id/:idEng', findEngById)
+  .get('/skill/:skillEng', findEngBySkill)
+  .get('/search', getSearch)
     
 module.exports = Route

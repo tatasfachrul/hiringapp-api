@@ -12,6 +12,17 @@ module.exports = {
       })
     })
   },
+  photoEngineer: (data, engineerId) => {
+    return new Promise((resolve, reject) => {
+      pool.query('UPDATE engineer SET ? WHERE id_eng = ?', [data, engineerId], (err, result)=> {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }  
+      })
+    })
+  },
   getEngineer: () => {
     return new Promise((resolve, reject) => {
       pool.query('SELECT * FROM v_engineer', (err, result) => {

@@ -5,7 +5,7 @@ const { addSkill, getSkill, updateSkill, deleteSkill, findSkill } = require('../
 const { checkToken } = require('../helpers/middleware');
 Route
   .post('/',checkToken, addSkill)
-  .get('/',checkToken, getSkill)
+  .get('/', getSkill)
   .put('/:skillId',checkToken, updateSkill)
   .delete('/:skillId',checkToken, deleteSkill)
   .get('/:skillId',checkToken, findSkill)

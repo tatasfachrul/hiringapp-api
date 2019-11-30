@@ -6,11 +6,13 @@ const { response } = require('./src/helpers/helpers')
 const route = require('./src/index');
 const PORT = process.env.PORT 
 const express = require('express')
-const cloudinaryConfig = require('./src/config/cloudinary');
+// const cloudinaryConfig = require('./src/config/cloudinary');
+var cors = require('cors')
 
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: false }))
 server.use(morgan('dev'))
+server.use(cors())
 
 server.listen(PORT, () => {
   console.log(`This server is running on port ${PORT}`)
