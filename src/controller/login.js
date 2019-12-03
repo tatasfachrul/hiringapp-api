@@ -16,10 +16,12 @@ module.exports = {
     
     try {
       let UserData = await loginModel.getUsername(data.username)
-      let result = await validateLogin(data, UserData)
-      response(res, 200, result)
+      let result = await validateLogin(res, data, UserData)
+      // response(res, 200, result)
+      
     } catch (error) {
       console.log(error);
+      console.log(result.result)
     }
   },
   proLogout:(req, res) => {

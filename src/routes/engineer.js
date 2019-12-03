@@ -1,7 +1,5 @@
 const express = require('express')
 const Route = express.Router()
-
-
 const { addEngineer, 
         getEngineer, 
         updateEngineer, 
@@ -19,7 +17,7 @@ const { checkToken } = require('../helpers/middleware');
 Route
   .use('*', cloudinaryConfig)
   .post('/', addEngineer)
-  .get('/', getEngineer)
+  .get('/', checkToken, getEngineer)
   .patch('/:engineerId', multerUploads.single('photo'),photoEngineer)
   .put('/:engineerId', updateEngineer)
   .delete('/:engineerId', deleteEngineer)

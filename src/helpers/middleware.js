@@ -5,7 +5,7 @@ const jwt_decode = require('jwt-decode')
 const loginModel = require('../model/login')
 const { response } = require('../helpers/helpers')
 
-const checkToken = (req, res, next) => {
+const checkToken =  async (req, res, next) => {
   const token = req.headers['x-access-token']
   
   if (!token) {
@@ -18,7 +18,7 @@ const checkToken = (req, res, next) => {
   var decoded = jwt_decode(token);
   const idUser = decoded.id_user
   
-  loginModel.getTokenDb(idUser)
+  await loginModel.getTokenDb(idUser)
     .then(result => {
       let tokenDb = result[0].tokenUse
       if (token == tokenDb) {

@@ -67,7 +67,7 @@ module.exports = {
     }
   },
   getEngineer: async (req, res) => {
-    engModel.getEngineer()
+    await engModel.getEngineer()
     .then(results => {
       response(res, 200, results)
     })
