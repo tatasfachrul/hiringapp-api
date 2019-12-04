@@ -69,5 +69,28 @@ module.exports = {
       })
     })
   },
+  findCompanyByUserName: (userName) => {
+    return new Promise((resolve, reject) => {
+      user = `${userName}`
+      pool.query('SELECT * FROM v_company WHERE username = ?', [user], (err,result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
+  logoCompany: (data, companyId) => {
+    return new Promise((resolve, reject) => {
+      pool.query('UPDATE company SET ? WHERE id_company = ?', [data, companyId], (err, result)=> {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }  
+      })
+    })
+  },
   
 }

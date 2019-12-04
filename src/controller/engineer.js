@@ -77,11 +77,14 @@ module.exports = {
   },
   updateEngineer: (req, res) => {
     const engineerId = req.params.engineerId
-    const { name_eng, dob, location } = req.body
+    const { name_eng, dob, location, no_hp, job, showcase } = req.body
     const data= {
       name_eng,
       dob,
       location,
+      no_hp,
+      job,
+      showcase,
       updatedAt: new Date(),
     }
     engModel.updateEngineer(data, engineerId)
@@ -89,7 +92,7 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
-        console.log(err)
+        response(res, 400, err)
       })
   },
   deleteEngineer: (req,res) => {

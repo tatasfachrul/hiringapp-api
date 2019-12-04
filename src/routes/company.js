@@ -1,16 +1,25 @@
-const express = require('express')
-const Route = express.Router()
-const { getCompany, addCompany, updateCompany, deleteCompany, findCompanyById } = require('../controller/company')
-const { checkToken } = require('../helpers/middleware');
-const { multerUploads } = require('../helpers/multer');
-const { cloudinaryConfig } = require('../config/cloudinary');
+const express = require("express");
+const Route = express.Router();
+const {
+  getCompany,
+  addCompany,
+  updateCompany,
+  deleteCompany,
+  findCompanyById,
+  findCompanyByUserName,
+  logoCompany
+} = require("../controller/company");
+const { checkToken } = require("../helpers/middleware");
+const { multerUploads } = require("../helpers/multer");
+const { cloudinaryConfig } = require("../config/cloudinary");
 
-Route
-  .use('*', cloudinaryConfig)
-  .get('/', checkToken, getCompany)
-  .post('/', addCompany)
-  .put('/:companyId', updateCompany)
-  .delete('/:companyId', checkToken, deleteCompany)
-  .get('/id/:idCompany', checkToken, findCompanyById)
+Route.use("*", cloudinaryConfig)
+  .get("/", checkToken, getCompany)
+  .post("/", addCompany)
+  .put("/:companyId", updateCompany)
+  .delete("/:companyId", checkToken, deleteCompany)
+  .get("/id/:idCompany", checkToken, findCompanyById)
+  .get("/user/:username", findCompanyByUserName)
+  .patch("/:companyId", multerUploads.single("logo"), logoCompany);
 
-module.exports = Route  
+module.exports = Route;

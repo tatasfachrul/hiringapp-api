@@ -1,10 +1,10 @@
 const express = require('express')
 const Route = express.Router()
 
-const { addHire } = require('../controller/hire')
+const { addProject, getProjectById } = require('../controller/project')
 // const { checkToken } = require('../helpers/middleware');
 Route
-  .post('/', addHire)
-  .get('/', addHire)
+  .post('/', addProject)
+  .get('/', getProjectById)
   
 module.exports = Route

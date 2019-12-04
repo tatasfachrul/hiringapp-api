@@ -7,31 +7,13 @@ const jwt_decode = require('jwt-decode')
 const moment = require('moment')
 
 module.exports = {
-  addHire: async (req, res) => {
-    const token = req.headers['x-access-token']
-    console.log(token);
-    const decoded = jwt_decode(token);
-    const idUser = decoded.id_user
-    console.log(idUser);
-    try {
-      let getIdComp = await companyModel.findCompanyByIdUser(idUser)
-      
-      var idComp = getIdComp[0].id_company
-      console.log(idComp);
-    } catch (error) {
-      console.log(error)
-    }
-    
-    const { project_name, description, period, deadline, salary, id_eng } = req.body
+  addHire: (req, res) => {   
+    const { id_project, id_eng, fee, project_job } = req.body
     const data =  {
-      project_name,
-      description,
-      period,
-      deadline,
-      salary,
+      id_project,
       id_eng,
-      id_company: idComp,
-      id_user: idUser,
+      fee,
+      project_job,
       createdAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
     }

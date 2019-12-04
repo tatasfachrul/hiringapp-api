@@ -1,49 +1,49 @@
-require('dotenv/config')
+require("dotenv/config");
 
-const companyModel = require('../model/company')
-const { response } = require('../helpers/helpers')
-const { uploader } = require('../config/cloudinary');
-const { dataUri } = require('../helpers/multer');
-const jwt_decode = require('jwt-decode')
+const companyModel = require("../model/company");
+const { response } = require("../helpers/helpers");
+const { uploader } = require("../config/cloudinary");
+const { dataUri } = require("../helpers/multer");
+const jwt_decode = require("jwt-decode");
 
 module.exports = {
   getCompany: (req, res) => {
-    companyModel.getCompany()
+    companyModel
+      .getCompany()
       .then(result => {
-        response(res, 200, result)
+        response(res, 200, result);
       })
       .catch(err => {
-        console.log(err)
-      })
+        console.log(err);
+      });
   },
   addCompany: (req, res) => {
-    const token = req.headers['x-access-token']
+    const token = req.headers["x-access-token"];
     const decoded = jwt_decode(token);
-    const idUser = decoded.id_user
+    const idUser = decoded.id_user;
 
-    const { name, location, description } = req.body
+    const { name, location, description } = req.body;
     const data = {
       name,
       logo: null,
       location,
       description,
-      id_user: idUser,
-    }
+      id_user: idUser
+    };
 
-    companyModel.addCompany(data)
+    companyModel
+      .addCompany(data)
       .then(result => {
-        response(res, 200, result)
+        response(res, 200, result);
       })
       .catch(err => {
-        response(res, 200, result)
-      })
-      
+        response(res, 200, result);
+      });
+
     // if (req.file) {
     //   const file = dataUri(req).content;
     //   uploader.upload(file,{folder: "hiringapp/company/logo"}
     // ).then((result) => {
-       
-        
 
     //   })
     //   .catch((err) => res.status(400).json({
@@ -56,51 +56,97 @@ module.exports = {
   },
 
   updateCompany: (req, res) => {
-    const companyId = req.params.companyId
-    const { name, logo, location, description } = req.body
+    const companyId = req.params.companyId;
+    const { name, location, description } = req.body;
     const data = {
       name,
-      logo,
       location,
       description
-    }
-    companyModel.updateCompany(data, companyId)
+    };
+    companyModel
+      .updateCompany(data, companyId)
       .then(result => {
-        response(res, 200, result)
+        response(res, 200, result);
       })
       .catch(err => {
-        console.log(err)
-      })
+        console.log(err);
+      });
   },
   deleteCompany: async (req, res) => {
-    const companyId = req.params.companyId
-    
-    try {
-      let getId = await companyModel.findCompanyById(companyId)
-      const logo = getId[0].logo
-      const filename = logo.split('/').pop().split('.')[0]
-      const public_id = 'hiringapp/company/logo/'+filename
-      uploader.destroy(public_id,(error, ress) => {
-        console.log(ress); 
-      })
+    const companyId = req.params.companyId;
 
-      let delCompany = await companyModel.deleteCompany(companyId)
-      response(res, 200, delCompany)
+    try {
+      let getId = await companyModel.findCompanyById(companyId);
+      const logo = getId[0].logo;
+      const filename = logo
+        .split("/")
+        .pop()
+        .split(".")[0];
+      const public_id = "hiringapp/company/logo/" + filename;
+      uploader.destroy(public_id, (error, ress) => {
+        console.log(ress);
+      });
+
+      let delCompany = await companyModel.deleteCompany(companyId);
+      response(res, 200, delCompany);
     } catch (error) {
       console.log(error);
     }
   },
   findCompanyById: (req, res) => {
-    const companyId = req.params.idCompany
+    const companyId = req.params.idCompany;
 
-    companyModel.findCompanyById(companyId)
+    companyModel
+      .findCompanyById(companyId)
       .then(result => {
-        response(res, 200, result)
+        response(res, 200, result);
       })
       .catch(err => {
-        console.log(err)
-      })
+        console.log(err);
+      });
   },
-  
+  findCompanyByUserName: (req, res) => {
+    const userName = req.params.username;
 
-}
+    companyModel
+      .findCompanyByUserName(userName)
+      .then(result => {
+        response(res, 200, result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  logoCompany: (req, res) => {
+    if (req.file) {
+      const file = dataUri(req).content;
+      uploader
+        .upload(file, { folder: "hiringapp/company/logo" })
+        .then(result => {
+          const companyId = req.params.companyId;
+          const data = {
+            logo: result.url
+          };
+          console.log(data);
+          companyModel
+            .logoCompany(data, companyId)
+            .then(result => {
+              response(res, 200, result);
+            })
+            .catch(err => {
+              response(res, 200, result);
+            });
+        })
+        .catch(err =>
+          res.status(400).json({
+            msg: "someting went wrong while processing your request",
+            data: {
+              err
+            }
+          })
+        );
+    } else {
+      response(res, 400, { msg: "no req file" });
+    }
+  }
+};
