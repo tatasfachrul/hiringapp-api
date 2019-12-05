@@ -81,10 +81,11 @@ module.exports = {
         response(res, 400, err)
       })
   },
-  getProjectByIdProj: async (req, res) => {
-    const IdProj = req.params.idProj
+  getOfferByIdProjIdEng: async (req, res) => {
+    const IdProj = req.query.idProj
+    const IdEng = req.query.idEng
     
-    projectModel.getProjectByIdProj(IdProj)
+    projectModel.getOfferByIdProjIdEng(IdProj, IdEng)
       .then(result => {
         response(res, 200, result)
       })
@@ -129,7 +130,27 @@ module.exports = {
         err={Msg: "Failed input to database!"}
         response(res, 400, err)
       })
-  }
+  },
+  getProjectByIdProj: async (req, res) => {
+    const IdProj = req.params.idproj
+    projectModel.getProjectByIdProj(IdProj)
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        response(res, 400, err)
+      })
+  },
+  getProjectEng: async (req, res) => {
+    const IdProj = req.params.idproj
+    projectModel.getProjectEng(IdProj)
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        response(res, 400, err)
+      })
+  },
   
   
 }
