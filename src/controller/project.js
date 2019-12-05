@@ -92,6 +92,44 @@ module.exports = {
         response(res, 400, err)
       })
   },
+  addBidFeeProj: async (req, res) => {    
+    const { id_project_eng, fee_bid, desc_nego_proj } = req.body
+    const data =  {
+      id_project_eng,
+      fee_bid,
+      desc_nego_proj,
+      sts_nego_proj: '1',
+      createdAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+    }
+
+    projectModel.addBidFeeProj(data)
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        err={Msg: "Failed input to database!"}
+        response(res, 400, err)
+      })
+  },
+  updateStsProjEng: (req,res) => {
+    const idProjEng = req.body.id_project_eng
+    const { sts_project_eng, date_accepted_eng } = req.body
+    const data =  {
+      sts_project_eng,
+      date_accepted_eng,
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+    }
+
+    projectModel.updateStsProjEng(data, idProjEng)
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        err={Msg: "Failed input to database!"}
+        response(res, 400, err)
+      })
+  }
   
   
 }

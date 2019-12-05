@@ -35,8 +35,6 @@ module.exports = {
       })
   },
   photoEngineer: (req, res) => {
-    
-
     if (req.file) {
       const file = dataUri(req).content;
       uploader.upload(file,{folder: "hiringapp/engineer/photo"}
