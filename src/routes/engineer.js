@@ -8,7 +8,8 @@ const { addEngineer,
         findEngById, 
         findEngBySkill, 
         getSearch, 
-        photoEngineer
+        photoEngineer,
+        findEngByUserName
  } = require('../controller/engineer')
 const { multerUploads } = require('../helpers/multer');
 const { cloudinaryConfig } = require('../config/cloudinary');
@@ -25,5 +26,6 @@ Route
   .get('/id/:idEng', findEngById)
   .get('/skill/:skillEng', findEngBySkill)
   .get('/search', getSearch)
+  .get("/user/:username", findEngByUserName)
     
 module.exports = Route

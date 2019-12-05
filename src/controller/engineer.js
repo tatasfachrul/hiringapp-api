@@ -154,6 +154,18 @@ module.exports = {
     .catch(err => {
         console.log(err)
     })
-}
+  },
+  findEngByUserName: (req, res) => {
+    const userName = req.params.username;
+
+    engModel
+      .findEngByUserName(userName)
+      .then(result => {
+        response(res, 200, result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   
 }
