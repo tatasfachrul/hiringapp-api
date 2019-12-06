@@ -151,6 +151,51 @@ module.exports = {
         response(res, 400, err)
       })
   },
+  getBidFeeProjByIdBid: async (req, res) => {
+    const IdBid = req.params.idbid
+    projectModel.getBidFeeProjByIdBid(IdBid)
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        response(res, 400, err)
+      })
+  },
+  updateStsBidProjComp: (req,res) => {
+    const IdBid = req.body.id_bid
+    const { sts_nego_proj } = req.body
+    const data =  {
+      sts_nego_proj,
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+    }
+
+    projectModel.updateStsBidProjComp(data, IdBid)
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        err={Msg: "Failed input to database!"}
+        response(res, 400, err)
+      })
+  },
+  updateProgProjEng: (req,res) => {
+    const idProjEng = req.body.id_project_eng
+    const { progress } = req.body
+    const data =  {
+      progress,
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+    }
+
+    projectModel.updateStsProjEng(data, idProjEng)
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        err={Msg: "Failed input to database!"}
+        response(res, 400, err)
+      })
+  },
+
   
   
 }

@@ -80,7 +80,7 @@ module.exports = {
   },
   getProjectEng: (IdProj) => {
     return new Promise((resolve, reject) => {
-      pool.query('SELECT a.id_project_eng, a.id_project, a.id_eng, b.name_eng, b.id_user, a.project_job, a.fee, a.sts_project_eng, a.date_accepted_eng, a.progress, b.photo, a.createdAt, b.updatedAt FROM project_eng a LEFT JOIN engineer b ON a.id_eng = b.id_eng WHERE a.id_project = ?', IdProj, (err, result) => {
+      pool.query('SELECT a.id_project_eng, a.id_project, a.id_eng, b.name_eng, b.id_user, a.project_job, a.fee, a.sts_project_eng, a.id_bid, a.date_accepted_eng, a.progress, b.photo, a.createdAt, b.updatedAt FROM project_eng a LEFT JOIN engineer b ON a.id_eng = b.id_eng WHERE a.id_project = ?', IdProj, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -88,5 +88,27 @@ module.exports = {
         }
       })
     })
-  }
+  },
+  getBidFeeProjByIdBid: (IdBid) => {
+    return new Promise((resolve, reject) => {
+      pool.query('SELECT * FROM tb_project_helper WHERE id = ?', IdBid, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
+  updateStsBidProjComp: (data,IdBid) => {
+    return new Promise((resolve, reject) => {
+      pool.query('UPDATE tb_project_helper SET ? WHERE id = ?', [data,IdBid], (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
 }
