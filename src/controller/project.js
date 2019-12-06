@@ -195,6 +195,37 @@ module.exports = {
         response(res, 400, err)
       })
   },
+  updateProject: (req,res) => {
+    const idProj = req.params.idproject
+    const { project_name,description,period,deadline } = req.body
+    const data =  {
+      project_name,
+      description,
+      period,
+      deadline,
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+    }
+
+    projectModel.updateProject(data, idProj)
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        err={Msg: "Failed input to database!"}
+        response(res, 400, err)
+      })
+  },
+  deleteProject: (req,res) => {
+    const idProj = req.params.idProj
+    
+    projectModel.deleteProject(idProj)
+    .then(result => {
+      response(res, 200, result)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
 
   
   

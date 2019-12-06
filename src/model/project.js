@@ -111,4 +111,26 @@ module.exports = {
       })
     })
   },
+  updateProject: (data, idProj) => {
+    return new Promise((resolve, reject) => {
+      pool.query('UPDATE project SET ? WHERE id_project = ?', [data, idProj], (err, result)=> {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }  
+      })
+    })
+  },
+  deleteProject: (idProj) => {
+    return new Promise((resolve, reject) => {
+      pool.query('DELETE FROM project WHERE id_project = ?', idProj, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
 }

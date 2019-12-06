@@ -13,6 +13,8 @@ const {
   getBidFeeProjByIdBid,
   updateStsBidProjComp,
   updateProgProjEng,
+  updateProject,
+  deleteProject
 } = require("../controller/project");
 const { checkToken } = require("../helpers/middleware");
 
@@ -27,5 +29,7 @@ Route.post("/", addProject)
   .get("/bid/:idbid", getBidFeeProjByIdBid)
   .patch("/bid/", updateStsBidProjComp)
   .patch("/prog/", updateProgProjEng)
+  .put("/:idproject", updateProject)
+  .delete("/:idProj", deleteProject)
 
 module.exports = Route;
