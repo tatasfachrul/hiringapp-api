@@ -18,7 +18,7 @@ const { checkToken } = require('../helpers/middleware');
 Route
   .use('*', cloudinaryConfig)
   .post('/', addEngineer)
-  .get('/', checkToken, getEngineer)
+  .get('/', getEngineer)
   .patch('/:engineerId', multerUploads.single('photo'),photoEngineer)
   .put('/:engineerId', updateEngineer)
   .delete('/:engineerId', deleteEngineer)

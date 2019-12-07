@@ -30,7 +30,8 @@ module.exports = {
         return response(res, 200, {
           success: true,
           message: "Authentication successful!",
-          token: tokenDb
+          token: tokenDb,
+          level: UserData[0].level
         });
       } else {
         return response(res, 400, {

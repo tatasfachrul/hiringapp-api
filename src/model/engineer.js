@@ -25,7 +25,8 @@ module.exports = {
   },
   getEngineer: () => {
     return new Promise((resolve, reject) => {
-      pool.query('SELECT * FROM v_engineer', (err, result) => {
+      pool.query(`SELECT * FROM v_engineer LEFT JOIN (SELECT id_eng as ideng, sum(IF(sts_project_eng='2', true, false)) AS totalProj, sum(IF(progress='1', true, false)) AS successProj, ((sum(IF(progress='1', true, false))/sum(IF(sts_project_eng='2', true, false)))*100) as rateSuccess FROM project_eng  
+      GROUP BY id_eng) AS proj ON v_engineer.id_eng = proj.ideng`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
