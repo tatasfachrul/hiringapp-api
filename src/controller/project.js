@@ -226,7 +226,34 @@ module.exports = {
       console.log(err)
     })
   },
-
+  getProjectEngByIdComp: (req, res) => {
+    const idComp = req.params.idComp
+    
+    projectModel.getProjectEngByIdComp(idComp)
+    .then(result => {
+      response(res, 200, result)
+    })
+    .catch(err => {
+      result= {
+        Msg: "Get data error"
+      }
+      response(res, 400, result)
+    })
+  },
+  getProjectEngByIdProjEng: (req, res) => {
+    const IdProjEng = req.params.idProjEng
+    
+    projectModel.getProjectEngByIdProjEng(IdProjEng)
+    .then(result => {
+      response(res, 200, result)
+    })
+    .catch(err => {
+      result= {
+        Msg: "Get data error"
+      }
+      response(res, 400, result)
+    })
+  },
   
   
 }

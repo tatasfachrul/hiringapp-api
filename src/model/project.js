@@ -133,4 +133,26 @@ module.exports = {
       })
     })
   },
+  getProjectEngByIdComp: (IdComp) => {
+    return new Promise((resolve, reject) => {
+      pool.query('SELECT a.*, b.photo FROM v_project a LEFT JOIN engineer b ON a.id_eng = b.id_eng WHERE id_company = ? ORDER BY updateProjEng DESC ', IdComp, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
+  getProjectEngByIdProjEng: (IdProjEng) => {
+    return new Promise((resolve, reject) => {
+      pool.query('SELECT a.*, b.photo FROM v_project a LEFT JOIN engineer b ON a.id_eng = b.id_eng WHERE id_project_eng = ?', IdProjEng, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
 }

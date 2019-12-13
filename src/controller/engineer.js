@@ -165,5 +165,31 @@ module.exports = {
         console.log(err);
       });
   },
+  getSearchSkillName: (req, res) => {
+
+    let skillName = req.query.skillName
+ 
+    if (skillName == '') {
+      engModel.getEngineer()
+        .then(results => {
+          response(res, 200, results)
+        })
+        .catch(err => {
+          response(res, 400, err)
+        })    
+    } else {
+      engModel.searchEngSkill(skillName)
+        .then(result => {
+            response(res, 200, result)
+        })
+        .catch(err => {
+          result= {
+            Message: "Search error!"
+          }
+          response(res, 400, result)
+        })
+    }
+  },
+  
   
 }

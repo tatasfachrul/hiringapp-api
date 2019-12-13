@@ -137,5 +137,16 @@ module.exports = {
       })
     })
   },
+  searchEngSkill: (skillName) => {
+    return new Promise((resolve, reject) => {
+      pool.query(`SELECT * FROM v_engineer WHERE name_skill LIKE '%${skillName}%' OR  name_eng LIKE '%${skillName}%' OR job LIKE '%${skillName}%' `, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
   
 }

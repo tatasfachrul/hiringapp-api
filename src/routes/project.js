@@ -14,7 +14,9 @@ const {
   updateStsBidProjComp,
   updateProgProjEng,
   updateProject,
-  deleteProject
+  deleteProject,
+  getProjectEngByIdComp,
+  getProjectEngByIdProjEng
 } = require("../controller/project");
 const { checkToken } = require("../helpers/middleware");
 
@@ -31,5 +33,7 @@ Route.post("/", addProject)
   .patch("/prog/", updateProgProjEng)
   .put("/:idproject", updateProject)
   .delete("/:idProj", deleteProject)
+  .get("/comp/:idComp", getProjectEngByIdComp)
+  .get("/projeng/:idProjEng", getProjectEngByIdProjEng)
 
 module.exports = Route;
