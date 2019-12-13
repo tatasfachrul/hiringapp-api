@@ -35,6 +35,6 @@ function handleValidationErrors(req, res, next) {
 Route
   .post('/register', validation, handleValidationErrors, addRegistration)
   .post('/login', proLogin)
-  .post('/logout', checkToken, proLogout)
+  .delete('/logout', checkToken, proLogout)
 
 module.exports = Route  

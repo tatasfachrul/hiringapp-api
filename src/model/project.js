@@ -14,7 +14,7 @@ module.exports = {
   },
   getProjectByIdComp: (idComp) => {
     return new Promise((resolve, reject) => {
-      pool.query('SELECT * FROM project WHERE id_company = ?', idComp,(err, result) => {
+      pool.query('SELECT * FROM project WHERE id_company = ? ORDER BY id_project DESC', idComp,(err, result) => {
         if (!err) {
           resolve(result)
         } else {

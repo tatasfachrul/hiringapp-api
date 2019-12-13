@@ -34,7 +34,8 @@ module.exports = {
     userRegistration.addRegistration(data)
       .then(result => {
         result = {
-          msg: "Registration successful"
+          msg: "Registration successful",
+          token: token
         }
         response(res, 200, result)
       })
