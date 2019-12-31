@@ -33,7 +33,7 @@ function handleValidationErrors(req, res, next) {
 };
 
 Route
-  .post('/register', validation, handleValidationErrors, addRegistration)
+  .post('/register', addRegistration)
   .post('/login', proLogin)
   .delete('/logout', checkToken, proLogout)
 
