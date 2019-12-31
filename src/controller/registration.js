@@ -16,7 +16,7 @@ module.exports = {
 
     var hash = bcrypt.hashSync(password, 10);
     const idUser = uuid();
-    const token = jwt.sign({id_user: idUser, username: username, email: email, level: level }, process.env.JWT_KEYS, { expiresIn: process.env.JWT_EXP })
+    // const token = jwt.sign({id_user: idUser, username: username, email: email, level: level }, process.env.JWT_KEYS, { expiresIn: process.env.JWT_EXP })
 
     const data = {
       id_user: idUser,
@@ -26,7 +26,7 @@ module.exports = {
       name,
       status: '0',
       level,
-      tokenUse: token,
+      tokenUse: null,
       createdAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
       updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
     }
