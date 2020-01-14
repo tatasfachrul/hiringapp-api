@@ -14,7 +14,6 @@
 * [Introduction](#introduction)
   * [Built With](#built-with)
   * [Configuration](#config)
-  * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
 
@@ -42,33 +41,6 @@ This section should list any major frameworks that you built your project using.
     Environment Variable
 
 
-
-
-### Prerequisites
-
-
-* npm
-```sh
-npm install node
-```
-```sh
-npm install express
-```
-```sh
-npm install morgan
-```
-```sh
-npm install uuid
-```
-```sh
-npm install jsonwebtoken
-```
-```sh
-npm install bodyparser
-```
-```sh
-npm install mysql
-```
 
 ### Installation
 
