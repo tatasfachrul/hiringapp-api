@@ -2,7 +2,6 @@ require('dotenv/config')
 
 const uuid = require('uuid/v4')
 const bcrypt = require('bcryptjs')
-const { check, validationResult } = require('express-validator')
 const moment = require('moment')
 const jwt = require('jsonwebtoken')
 
@@ -39,10 +38,12 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
-        ress = {
-          msg: 'Registration failed'
+        if (err) {
+          const ress = {
+            msg: 'Registration failed'
+          }
+          response(res, 400, ress)
         }
-        response(res, 400, ress)
       })
   }
 }
