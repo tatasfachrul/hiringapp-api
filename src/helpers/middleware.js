@@ -1,7 +1,7 @@
 // require('dotenv/config')
 
 const jwt = require('jsonwebtoken')
-const jwt_decode = require('jwt-decode')
+const jwtDecode = require('jwt-decode')
 const loginModel = require('../model/login')
 const { response } = require('../helpers/helpers')
 
@@ -9,19 +9,19 @@ const checkToken = async (req, res, next) => {
   const token = req.headers['x-access-token']
 
   if (!token) {
-    result = {
+    const result = {
       Msg: 'Please login or register'
     }
     response(res, 400, result)
   }
 
-  var decoded = jwt_decode(token)
+  var decoded = jwtDecode(token)
   const idUser = decoded.id_user
 
   await loginModel.getTokenDb(idUser)
     .then(result => {
       const tokenDb = result[0].tokenUse
-      if (token == tokenDb) {
+      if (token === tokenDb) {
         if (typeof token !== 'undefined') {
           jwt.verify(token, process.env.JWT_KEYS, (err, decoded) => {
             if (err) {

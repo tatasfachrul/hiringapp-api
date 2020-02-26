@@ -10,7 +10,6 @@ const showcase = require('./routes/showcase')
 const engskill = require('./routes/engskill')
 const hire = require('./routes/hire')
 const project = require('./routes/project')
-const cloudinaryConfig = require('./config/cloudinary')
 
 Route
   .use('/auth', auth)
