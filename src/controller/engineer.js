@@ -2,7 +2,7 @@ require('dotenv/config')
 
 const engModel = require('../model/engineer')
 const { response } = require('../helpers/helpers')
-const jwt_decode = require('jwt-decode')
+const jwtDecode = require('jwt-decode')
 const moment = require('moment')
 const { uploader } = require('../config/cloudinary')
 const { dataUri } = require('../helpers/multer')
@@ -10,7 +10,7 @@ const { dataUri } = require('../helpers/multer')
 module.exports = {
   addEngineer: (req, res) => {
     const token = req.headers['x-access-token']
-    const decoded = jwt_decode(token)
+    const decoded = jwtDecode(token)
     const idUser = decoded.id_user
 
     const { name_eng, dob, location, no_hp, job, showcase } = req.body
@@ -49,7 +49,7 @@ module.exports = {
             response(res, 200, result)
           })
           .catch(err => {
-            response(res, 200, result)
+            response(res, 200, err)
           })
       })
         .catch((err) => res.status(400).json({
@@ -166,7 +166,7 @@ module.exports = {
   getSearchSkillName: (req, res) => {
     const skillName = req.query.skillName
 
-    if (skillName == '') {
+    if (skillName === '') {
       engModel.getEngineer()
         .then(results => {
           response(res, 200, results)
@@ -180,10 +180,12 @@ module.exports = {
           response(res, 200, result)
         })
         .catch(err => {
-          result = {
-            Message: 'Search error!'
+          if (err) {
+            const result = {
+              Message: 'Search error!'
+            }
+            response(res, 400, result)
           }
-          response(res, 400, result)
         })
     }
   }

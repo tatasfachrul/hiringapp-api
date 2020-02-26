@@ -1,9 +1,7 @@
 require('dotenv/config')
 
 const hireModel = require('../model/hire')
-const companyModel = require('../model/company')
 const { response } = require('../helpers/helpers')
-const jwt_decode = require('jwt-decode')
 const moment = require('moment')
 
 module.exports = {

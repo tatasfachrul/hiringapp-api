@@ -4,7 +4,7 @@ const companyModel = require('../model/company')
 const { response } = require('../helpers/helpers')
 const { uploader } = require('../config/cloudinary')
 const { dataUri } = require('../helpers/multer')
-const jwDecode = require('jwt-decode')
+const jwtDecode = require('jwt-decode')
 
 module.exports = {
   getCompany: (req, res) => {
@@ -19,7 +19,7 @@ module.exports = {
   },
   addCompany: (req, res) => {
     const token = req.headers['x-access-token']
-    const decoded = jwDecode(token)
+    const decoded = jwtDecode(token)
     const idUser = decoded.id_user
 
     const { name, location, description } = req.body
