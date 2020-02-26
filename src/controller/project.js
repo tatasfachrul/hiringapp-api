@@ -4,13 +4,13 @@ const projectModel = require('../model/project')
 const companyModel = require('../model/company')
 const engmodel = require('../model/engineer')
 const { response } = require('../helpers/helpers')
-const jwt_decode = require('jwt-decode')
+const jwtDecode = require('jwt-decode')
 const moment = require('moment')
 
 module.exports = {
   addProject: async (req, res) => {
     const token = req.headers['x-access-token']
-    const decoded = jwt_decode(token)
+    const decoded = jwtDecode(token)
     const idUser = decoded.id_user
     try {
       const getIdComp = await companyModel.findCompanyByIdUser(idUser)
@@ -42,7 +42,7 @@ module.exports = {
   },
   getProjectById: async (req, res) => {
     const token = req.headers['x-access-token']
-    const decoded = jwt_decode(token)
+    const decoded = jwtDecode(token)
     const IdUserComp = decoded.id_user
     // console.log(IdUserComp)
     try {
@@ -63,7 +63,7 @@ module.exports = {
   },
   getProjectByIdEng: async (req, res) => {
     const token = req.headers['x-access-token']
-    const decoded = jwt_decode(token)
+    const decoded = jwtDecode(token)
     const user_eng = decoded.id_user
     try {
       const getIdEng = await engmodel.findEngineerByIdUser(user_eng)
@@ -234,10 +234,12 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
-        result = {
-          Msg: 'Get data error'
+        if (err) {
+          const result = {
+            Msg: 'Get data error'
+          }
+          response(res, 400, result)
         }
-        response(res, 400, result)
       })
   },
   getProjectEngByIdProjEng: (req, res) => {
@@ -248,10 +250,12 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
-        result = {
-          Msg: 'Get data error'
+        if (err) {
+          const result = {
+            Msg: 'Get data error'
+          }
+          response(res, 400, result)
         }
-        response(res, 400, result)
       })
   }
 
