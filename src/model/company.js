@@ -47,7 +47,7 @@ module.exports = {
   },
   findCompanyById: (companyId) => {
     return new Promise((resolve, reject) => {
-      idCompany = `${companyId}`
+      const idCompany = `${companyId}`
       pool.query('SELECT * FROM company WHERE id_company = ?', [idCompany], (err, result) => {
         if (!err) {
           resolve(result)
@@ -57,10 +57,10 @@ module.exports = {
       })
     })
   },
-  findCompanyByIdUser: (idUser) => {
+  findCompanyByIdUser: (userId) => {
     return new Promise((resolve, reject) => {
-      id_user = `${idUser}`
-      pool.query('SELECT * FROM company WHERE id_user = ?', [id_user], (err, result) => {
+      const idUser = `${userId}`
+      pool.query('SELECT * FROM company WHERE idUser = ?', [idUser], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -71,7 +71,7 @@ module.exports = {
   },
   findCompanyByUserName: (userName) => {
     return new Promise((resolve, reject) => {
-      user = `${userName}`
+      const user = `${userName}`
       pool.query('SELECT * FROM v_company WHERE username = ?', [user], (err, result) => {
         if (!err) {
           resolve(result)
