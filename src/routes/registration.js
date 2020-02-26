@@ -2,8 +2,6 @@ const express = require('express')
 const Route = express.Router()
 
 const { addRegistration } = require('../controller/registration')
-
-const { validator } = require('express-validator')
 const { check, oneOf, validationResult } = require('express-validator')
 
 const validation = [

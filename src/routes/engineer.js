@@ -8,7 +8,6 @@ const {
   findEngByName,
   findEngById,
   findEngBySkill,
-  getSearch,
   photoEngineer,
   findEngByUserName,
   getSearchSkillName
@@ -16,7 +15,6 @@ const {
 } = require('../controller/engineer')
 const { multerUploads } = require('../helpers/multer')
 const { cloudinaryConfig } = require('../config/cloudinary')
-const { checkToken } = require('../helpers/middleware')
 
 Route
   .use('*', cloudinaryConfig)

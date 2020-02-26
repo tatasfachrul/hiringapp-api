@@ -18,7 +18,6 @@ const {
   getProjectEngByIdComp,
   getProjectEngByIdProjEng
 } = require('../controller/project')
-const { checkToken } = require('../helpers/middleware')
 
 Route.post('/', addProject)
   .get('/', getProjectById)
