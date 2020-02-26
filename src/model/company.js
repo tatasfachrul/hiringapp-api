@@ -60,7 +60,7 @@ module.exports = {
   findCompanyByIdUser: (userId) => {
     return new Promise((resolve, reject) => {
       const idUser = `${userId}`
-      pool.query('SELECT * FROM company WHERE idUser = ?', [idUser], (err, result) => {
+      pool.query('SELECT * FROM company WHERE id_user = ?', [idUser], (err, result) => {
         if (!err) {
           resolve(result)
         } else {

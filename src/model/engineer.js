@@ -116,7 +116,7 @@ module.exports = {
   findEngineerByIdUser: (idUser) => {
     return new Promise((resolve, reject) => {
       const userId = `${idUser}`
-      pool.query('SELECT * FROM engineer WHERE userId = ?', [userId], (err, result) => {
+      pool.query('SELECT * FROM engineer WHERE id_user = ?', [userId], (err, result) => {
         if (!err) {
           resolve(result)
         } else {

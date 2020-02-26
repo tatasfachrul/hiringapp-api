@@ -16,7 +16,7 @@ module.exports = {
       const getIdComp = await companyModel.findCompanyByIdUser(idUser)
       var idComp = getIdComp[0].id_company
     } catch (error) {
-      console.log(error)
+      response(res, 400, error)
     }
 
     const { project_name, description, period, deadline } = req.body
@@ -36,6 +36,7 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
+        console.log(err)
         err = { Msg: 'Failed input to database!' }
         response(res, 400, err)
       })
@@ -109,6 +110,7 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
+        console.log(err)
         err = { Msg: 'Failed input to database!' }
         response(res, 400, err)
       })

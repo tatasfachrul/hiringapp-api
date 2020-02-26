@@ -19,7 +19,8 @@ const {
   getProjectEngByIdProjEng
 } = require('../controller/project')
 
-Route.post('/', addProject)
+Route
+  .post('/', addProject)
   .get('/', getProjectById)
   .get('/engineer/', getProjectByIdEng)
   .get('/offer/', getOfferByIdProjIdEng)
