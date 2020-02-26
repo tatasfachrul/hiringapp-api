@@ -76,6 +76,6 @@ npm start
 
 Import this link to your postman dasboard
 ```sh
-https://www.getpostman.com/collections/103288cc29006ef81f0a
+https://www.getpostman.com/collections/0fc0ca9eb6859d379a28
 ```
 
