@@ -115,8 +115,8 @@ module.exports = {
   },
   findEngineerByIdUser: (idUser) => {
     return new Promise((resolve, reject) => {
-      id_user = `${idUser}`
-      pool.query('SELECT * FROM engineer WHERE id_user = ?', [id_user], (err, result) => {
+      const userId = `${idUser}`
+      pool.query('SELECT * FROM engineer WHERE userId = ?', [userId], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -127,7 +127,7 @@ module.exports = {
   },
   findEngByUserName: (userName) => {
     return new Promise((resolve, reject) => {
-      user = `${userName}`
+      const user = `${userName}`
       pool.query('SELECT * FROM v_engineer WHERE username = ?', [user], (err, result) => {
         if (!err) {
           resolve(result)
