@@ -1,5 +1,6 @@
 require('dotenv/config')
 
+const _ = require('lodash')
 const engModel = require('../model/engineer')
 const { response } = require('../helpers/helpers')
 const jwtDecode = require('jwt-decode')
@@ -36,33 +37,31 @@ module.exports = {
       })
   },
   photoEngineer: (req, res) => {
-    if (req.file) {
-      const file = dataUri(req).content
-      uploader.upload(file, { folder: 'hiringapp/engineer/photo' }
-      ).then((result) => {
-        const engineerId = req.params.engineerId
-        const data = {
-          photo: result.url
+    try {
+      const engineerId = req.params.engineerId
+      let dataFile = {}
+      if (!_.result(req.file, 'key')) {
+        console.log(req.file)
+        return res.json('Invalid')
+      } else {
+        dataFile = {
+          file: req.file.key,
+          url: process.env.AWS_BucketEndpoint + '/' + req.file.key
         }
-        console.log(data)
-        engModel.photoEngineer(data, engineerId)
-          .then(result => {
-            response(res, 200, result)
-          })
-          .catch(err => {
-            response(res, 200, err)
-          })
-      })
-        .catch((err) => res.status(400).json({
-          messge: 'someting went wrong while processing your request',
-          data: {
-            err
-          }
-        }))
-    } else {
-      response(res, 400, { msg: 'no req file' })
+      }
+      console.log(req.file.location)
+      const data = {
+        photo: dataFile.url
+      }
+      console.log(data)
+      engModel.photoEngineer(data, engineerId)
+        .then(result => response(res, 200, result))
+        .catch(error => response(res, 200, error))
+    } catch (error) {
+      response(res, 400, error)
     }
   },
+
   getEngineer: async (req, res) => {
     await engModel.getEngineer()
       .then(results => {

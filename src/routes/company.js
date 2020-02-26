@@ -10,16 +10,15 @@ const {
   logoCompany
 } = require('../controller/company')
 const { checkToken } = require('../helpers/middleware')
-const { multerUploads } = require('../helpers/multer')
-const { cloudinaryConfig } = require('../config/cloudinary')
+const awsS3 = require('../middleware/awsS3')
 
-Route.use('*', cloudinaryConfig)
+Route
   .get('/', checkToken, getCompany)
   .post('/', addCompany)
   .put('/:companyId', updateCompany)
   .delete('/:companyId', checkToken, deleteCompany)
   .get('/id/:idCompany', checkToken, findCompanyById)
   .get('/user/:username', findCompanyByUserName)
-  .patch('/:companyId', multerUploads.single('logo'), logoCompany)
+  .patch('/:companyId', awsS3.upload.single('files'), logoCompany)
 
 module.exports = Route

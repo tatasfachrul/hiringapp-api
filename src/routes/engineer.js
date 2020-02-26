@@ -13,14 +13,12 @@ const {
   getSearchSkillName
 
 } = require('../controller/engineer')
-const { multerUploads } = require('../helpers/multer')
-const { cloudinaryConfig } = require('../config/cloudinary')
+const awsS3 = require('../middleware/awsS3')
 
 Route
-  .use('*', cloudinaryConfig)
   .post('/', addEngineer)
   .get('/', getEngineer)
-  .patch('/:engineerId', multerUploads.single('photo'), photoEngineer)
+  .patch('/:engineerId', awsS3.upload.single('files'), photoEngineer)
   .put('/:engineerId', updateEngineer)
   .delete('/:engineerId', deleteEngineer)
   .get('/name/:nameEng', findEngByName)

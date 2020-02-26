@@ -1,5 +1,6 @@
 require('dotenv/config')
 
+const _ = require('lodash')
 const companyModel = require('../model/company')
 const { response } = require('../helpers/helpers')
 const { uploader } = require('../config/cloudinary')
@@ -119,35 +120,28 @@ module.exports = {
       })
   },
   logoCompany: (req, res) => {
-    if (req.file) {
-      const file = dataUri(req).content
-      uploader
-        .upload(file, { folder: 'hiringapp/company/logo' })
-        .then(result => {
-          const companyId = req.params.companyId
-          const data = {
-            logo: result.url
-          }
-          console.log(data)
-          companyModel
-            .logoCompany(data, companyId)
-            .then(result => {
-              response(res, 200, result)
-            })
-            .catch(err => {
-              response(res, 200, err)
-            })
-        })
-        .catch(err =>
-          res.status(400).json({
-            msg: 'someting went wrong while processing your request',
-            data: {
-              err
-            }
-          })
-        )
-    } else {
-      response(res, 400, { msg: 'no req file' })
+    try {
+      const companyId = req.params.companyId
+      let dataFile = {}
+      if (!_.result(req.file, 'key')) {
+        console.log(req.file)
+        return res.json('Invalid')
+      } else {
+        dataFile = {
+          file: req.file.key,
+          url: process.env.AWS_BucketEndpoint + '/' + req.file.key
+        }
+      }
+      console.log(req.file.location)
+      const data = {
+        logo: dataFile.url
+      }
+      console.log(data)
+      companyModel.logoCompany(data, companyId)
+        .then(result => response(res, 200, result))
+        .catch(error => response(res, 200, error))
+    } catch (error) {
+      response(res, 400, error)
     }
   }
 }

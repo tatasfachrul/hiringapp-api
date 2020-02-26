@@ -22,6 +22,5 @@ Route
   .use('/hire', hire)
   .use('/project', project)
   .use('/uploads', express.static('uploads'))
-  // .use('*', cloudinaryConfig);
 
 module.exports = Route
