@@ -1,5 +1,5 @@
-const express = require("express");
-const Route = express.Router();
+const express = require('express')
+const Route = express.Router()
 
 const {
   addProject,
@@ -17,23 +17,23 @@ const {
   deleteProject,
   getProjectEngByIdComp,
   getProjectEngByIdProjEng
-} = require("../controller/project");
-const { checkToken } = require("../helpers/middleware");
+} = require('../controller/project')
+const { checkToken } = require('../helpers/middleware')
 
-Route.post("/", addProject)
-  .get("/", getProjectById)
-  .get("/engineer/", getProjectByIdEng)
-  .get("/offer/", getOfferByIdProjIdEng)
-  .post("/bid/", addBidFeeProj)
-  .patch("/sts/", updateStsProjEng)
-  .get("/id/:idproj", getProjectByIdProj)
-  .get("/eng/:idproj", getProjectEng)
-  .get("/bid/:idbid", getBidFeeProjByIdBid)
-  .patch("/bid/", updateStsBidProjComp)
-  .patch("/prog/", updateProgProjEng)
-  .put("/:idproject", updateProject)
-  .delete("/:idProj", deleteProject)
-  .get("/comp/:idComp", getProjectEngByIdComp)
-  .get("/projeng/:idProjEng", getProjectEngByIdProjEng)
+Route.post('/', addProject)
+  .get('/', getProjectById)
+  .get('/engineer/', getProjectByIdEng)
+  .get('/offer/', getOfferByIdProjIdEng)
+  .post('/bid/', addBidFeeProj)
+  .patch('/sts/', updateStsProjEng)
+  .get('/id/:idproj', getProjectByIdProj)
+  .get('/eng/:idproj', getProjectEng)
+  .get('/bid/:idbid', getBidFeeProjByIdBid)
+  .patch('/bid/', updateStsBidProjComp)
+  .patch('/prog/', updateProgProjEng)
+  .put('/:idproject', updateProject)
+  .delete('/:idProj', deleteProject)
+  .get('/comp/:idComp', getProjectEngByIdComp)
+  .get('/projeng/:idProjEng', getProjectEngByIdProjEng)
 
-module.exports = Route;
+module.exports = Route

@@ -3,8 +3,8 @@ const server = require('express')()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const { response } = require('./src/helpers/helpers')
-const route = require('./src/index');
-const PORT = process.env.PORT 
+const route = require('./src/index')
+const PORT = process.env.PORT
 const express = require('express')
 // const cloudinaryConfig = require('./src/config/cloudinary');
 var cors = require('cors')
@@ -19,14 +19,10 @@ server.listen(PORT, () => {
 })
 
 server.get('/', (req, res) => {
-  response(res, 200, "Hello from the Node JS RESTful side!", )
+  response(res, 200, 'Hello from the Node JS RESTful side!')
 })
 
 server.use('/', route)
 server.use('/uploads', express.static('src/uploads'))
 
 module.exports = server
-
-
-
-

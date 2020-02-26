@@ -6,19 +6,19 @@ const { response } = require('../helpers/helpers')
 module.exports = {
   addSkill: (req, res) => {
     const { name_skill } = req.body
-    const data =  {
+    const data = {
       name_skill
     }
     skillModel.addSkill(data)
       .then(result => {
         result = {
-          Msg: "Submit data successfully!"
+          Msg: 'Submit data successfully!'
         }
         response(res, 200, result)
       })
       .catch(err => {
         err = {
-          Msg: "Submit data failed!"
+          Msg: 'Submit data failed!'
         }
         response(res, 400, err)
       })
@@ -35,44 +35,44 @@ module.exports = {
   updateSkill: (req, res) => {
     const skillId = req.params.skillId
     const { name_skill } = req.body
-    const data= {
+    const data = {
       name_skill
     }
     skillModel.updateSkill(data, skillId)
       .then(result => {
         result = {
-          Msg: "Update data successfully!"
+          Msg: 'Update data successfully!'
         }
         response(res, 200, result)
       })
       .catch(err => {
         err = {
-          Msg: "Update data failed!"
+          Msg: 'Update data failed!'
         }
         response(res, 400, err)
       })
   },
-  deleteSkill: (req,res) => {
+  deleteSkill: (req, res) => {
     const skillId = req.params.skillId
-    
+
     skillModel.deleteSkill(skillId)
-    .then(result => {
-      response(res, 200, result)
-    })
-    .catch(err => {
-      response(res, 400, err)
-    })
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        response(res, 400, err)
+      })
   },
   findSkill: (req, res) => {
     const skillId = req.params.skillId
 
     skillModel.findSkill(skillId)
-    .then(result => {
-      response(res, 200, result)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  },
-  
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
 }

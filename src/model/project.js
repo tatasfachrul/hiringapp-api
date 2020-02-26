@@ -14,7 +14,7 @@ module.exports = {
   },
   getProjectByIdComp: (idComp) => {
     return new Promise((resolve, reject) => {
-      pool.query('SELECT * FROM project WHERE id_company = ? ORDER BY id_project DESC', idComp,(err, result) => {
+      pool.query('SELECT * FROM project WHERE id_company = ? ORDER BY id_project DESC', idComp, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -34,7 +34,7 @@ module.exports = {
       })
     })
   },
-  getOfferByIdProjIdEng: (IdProj,IdEng) => {
+  getOfferByIdProjIdEng: (IdProj, IdEng) => {
     return new Promise((resolve, reject) => {
       pool.query(`SELECT * FROM v_project WHERE id_project = '${IdProj}' AND id_eng = '${IdEng}'`, (err, result) => {
         if (!err) {
@@ -58,12 +58,12 @@ module.exports = {
   },
   updateStsProjEng: (data, idProjEng) => {
     return new Promise((resolve, reject) => {
-      pool.query('UPDATE project_eng SET ? WHERE id_project_eng = ?', [data, idProjEng], (err, result)=> {
+      pool.query('UPDATE project_eng SET ? WHERE id_project_eng = ?', [data, idProjEng], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
           reject(new Error(err))
-        }  
+        }
       })
     })
   },
@@ -100,9 +100,9 @@ module.exports = {
       })
     })
   },
-  updateStsBidProjComp: (data,IdBid) => {
+  updateStsBidProjComp: (data, IdBid) => {
     return new Promise((resolve, reject) => {
-      pool.query('UPDATE tb_project_helper SET ? WHERE id = ?', [data,IdBid], (err, result) => {
+      pool.query('UPDATE tb_project_helper SET ? WHERE id = ?', [data, IdBid], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -113,12 +113,12 @@ module.exports = {
   },
   updateProject: (data, idProj) => {
     return new Promise((resolve, reject) => {
-      pool.query('UPDATE project SET ? WHERE id_project = ?', [data, idProj], (err, result)=> {
+      pool.query('UPDATE project SET ? WHERE id_project = ?', [data, idProj], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
           reject(new Error(err))
-        }  
+        }
       })
     })
   },
@@ -154,5 +154,5 @@ module.exports = {
         }
       })
     })
-  },
+  }
 }

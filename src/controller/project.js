@@ -13,14 +13,14 @@ module.exports = {
     const decoded = jwt_decode(token)
     const idUser = decoded.id_user
     try {
-      let getIdComp = await companyModel.findCompanyByIdUser(idUser)
+      const getIdComp = await companyModel.findCompanyByIdUser(idUser)
       var idComp = getIdComp[0].id_company
     } catch (error) {
       console.log(error)
     }
-    
+
     const { project_name, description, period, deadline } = req.body
-    const data =  {
+    const data = {
       project_name,
       description,
       period,
@@ -28,7 +28,7 @@ module.exports = {
       id_company: idComp,
       id_user: idUser,
       createdAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
-      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
     }
 
     projectModel.addProject(data)
@@ -36,17 +36,17 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
-        err={Msg: "Failed input to database!"}
+        err = { Msg: 'Failed input to database!' }
         response(res, 400, err)
       })
   },
   getProjectById: async (req, res) => {
     const token = req.headers['x-access-token']
-    const decoded = jwt_decode(token);
+    const decoded = jwt_decode(token)
     const IdUserComp = decoded.id_user
     // console.log(IdUserComp)
     try {
-      let getIdComp = await companyModel.findCompanyByIdUser(IdUserComp)
+      const getIdComp = await companyModel.findCompanyByIdUser(IdUserComp)
       var idComp = getIdComp[0].id_company
       // console.log(getIdComp);
     } catch (error) {
@@ -66,9 +66,9 @@ module.exports = {
     const decoded = jwt_decode(token)
     const user_eng = decoded.id_user
     try {
-      let getIdEng = await engmodel.findEngineerByIdUser(user_eng)
+      const getIdEng = await engmodel.findEngineerByIdUser(user_eng)
       var idEng = getIdEng[0].id_eng
-      console.log(getIdEng);
+      console.log(getIdEng)
     } catch (error) {
       response(res, 400, error)
     }
@@ -84,7 +84,7 @@ module.exports = {
   getOfferByIdProjIdEng: async (req, res) => {
     const IdProj = req.query.idProj
     const IdEng = req.query.idEng
-    
+
     projectModel.getOfferByIdProjIdEng(IdProj, IdEng)
       .then(result => {
         response(res, 200, result)
@@ -93,15 +93,15 @@ module.exports = {
         response(res, 400, err)
       })
   },
-  addBidFeeProj: async (req, res) => {    
+  addBidFeeProj: async (req, res) => {
     const { id_project_eng, fee_bid, desc_nego_proj } = req.body
-    const data =  {
+    const data = {
       id_project_eng,
       fee_bid,
       desc_nego_proj,
       sts_nego_proj: '1',
       createdAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
-      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
     }
 
     projectModel.addBidFeeProj(data)
@@ -109,17 +109,17 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
-        err={Msg: "Failed input to database!"}
+        err = { Msg: 'Failed input to database!' }
         response(res, 400, err)
       })
   },
-  updateStsProjEng: (req,res) => {
+  updateStsProjEng: (req, res) => {
     const idProjEng = req.body.id_project_eng
     const { sts_project_eng, date_accepted_eng } = req.body
-    const data =  {
+    const data = {
       sts_project_eng,
       date_accepted_eng,
-      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
     }
 
     projectModel.updateStsProjEng(data, idProjEng)
@@ -127,7 +127,7 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
-        err={Msg: "Failed input to database!"}
+        err = { Msg: 'Failed input to database!' }
         response(res, 400, err)
       })
   },
@@ -161,12 +161,12 @@ module.exports = {
         response(res, 400, err)
       })
   },
-  updateStsBidProjComp: (req,res) => {
+  updateStsBidProjComp: (req, res) => {
     const IdBid = req.body.id_bid
     const { sts_nego_proj } = req.body
-    const data =  {
+    const data = {
       sts_nego_proj,
-      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
     }
 
     projectModel.updateStsBidProjComp(data, IdBid)
@@ -174,16 +174,16 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
-        err={Msg: "Failed input to database!"}
+        err = { Msg: 'Failed input to database!' }
         response(res, 400, err)
       })
   },
-  updateProgProjEng: (req,res) => {
+  updateProgProjEng: (req, res) => {
     const idProjEng = req.body.id_project_eng
     const { progress } = req.body
-    const data =  {
+    const data = {
       progress,
-      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
     }
 
     projectModel.updateStsProjEng(data, idProjEng)
@@ -191,19 +191,19 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
-        err={Msg: "Failed input to database!"}
+        err = { Msg: 'Failed input to database!' }
         response(res, 400, err)
       })
   },
-  updateProject: (req,res) => {
+  updateProject: (req, res) => {
     const idProj = req.params.idproject
-    const { project_name,description,period,deadline } = req.body
-    const data =  {
+    const { project_name, description, period, deadline } = req.body
+    const data = {
       project_name,
       description,
       period,
       deadline,
-      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
     }
 
     projectModel.updateProject(data, idProj)
@@ -211,49 +211,48 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
-        err={Msg: "Failed input to database!"}
+        err = { Msg: 'Failed input to database!' }
         response(res, 400, err)
       })
   },
-  deleteProject: (req,res) => {
+  deleteProject: (req, res) => {
     const idProj = req.params.idProj
-    
+
     projectModel.deleteProject(idProj)
-    .then(result => {
-      response(res, 200, result)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
   getProjectEngByIdComp: (req, res) => {
     const idComp = req.params.idComp
-    
+
     projectModel.getProjectEngByIdComp(idComp)
-    .then(result => {
-      response(res, 200, result)
-    })
-    .catch(err => {
-      result= {
-        Msg: "Get data error"
-      }
-      response(res, 400, result)
-    })
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        result = {
+          Msg: 'Get data error'
+        }
+        response(res, 400, result)
+      })
   },
   getProjectEngByIdProjEng: (req, res) => {
     const IdProjEng = req.params.idProjEng
-    
+
     projectModel.getProjectEngByIdProjEng(IdProjEng)
-    .then(result => {
-      response(res, 200, result)
-    })
-    .catch(err => {
-      result= {
-        Msg: "Get data error"
-      }
-      response(res, 400, result)
-    })
-  },
-  
-  
+      .then(result => {
+        response(res, 200, result)
+      })
+      .catch(err => {
+        result = {
+          Msg: 'Get data error'
+        }
+        response(res, 400, result)
+      })
+  }
+
 }

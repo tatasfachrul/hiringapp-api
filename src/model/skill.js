@@ -25,12 +25,12 @@ module.exports = {
   },
   updateSkill: (data, skillId) => {
     return new Promise((resolve, reject) => {
-      pool.query('UPDATE skill SET ? WHERE id_skill = ?', [data, skillId], (err, result)=> {
+      pool.query('UPDATE skill SET ? WHERE id_skill = ?', [data, skillId], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
           reject(new Error(err))
-        }  
+        }
       })
     })
   },

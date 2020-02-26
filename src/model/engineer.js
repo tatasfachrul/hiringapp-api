@@ -14,12 +14,12 @@ module.exports = {
   },
   photoEngineer: (data, engineerId) => {
     return new Promise((resolve, reject) => {
-      pool.query('UPDATE engineer SET ? WHERE id_eng = ?', [data, engineerId], (err, result)=> {
+      pool.query('UPDATE engineer SET ? WHERE id_eng = ?', [data, engineerId], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
           reject(new Error(err))
-        }  
+        }
       })
     })
   },
@@ -42,18 +42,18 @@ module.exports = {
           resolve(result)
         } else {
           reject(new Error(err))
-        }  
+        }
       })
     })
   },
   updateEngineer: (data, engineerId) => {
     return new Promise((resolve, reject) => {
-      pool.query('UPDATE engineer SET ? WHERE id_eng = ?', [data, engineerId], (err, result)=> {
+      pool.query('UPDATE engineer SET ? WHERE id_eng = ?', [data, engineerId], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
           reject(new Error(err))
-        }  
+        }
       })
     })
   },
@@ -70,7 +70,7 @@ module.exports = {
   },
   findEngByName: (nameEng) => {
     return new Promise((resolve, reject) => {
-      pool.query('SELECT * FROM v_engineer WHERE name_eng LIKE ? ', [`%`+nameEng+`%`], (err, result) => {
+      pool.query('SELECT * FROM v_engineer WHERE name_eng LIKE ? ', ['%' + nameEng + '%'], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -82,7 +82,7 @@ module.exports = {
   findEngById: (idEng) => {
     return new Promise((resolve, reject) => {
       pool.query(`SELECT * FROM v_engineer LEFT JOIN (SELECT id_eng as ideng, sum(IF(sts_project_eng='2', true, false)) AS totalProj, sum(IF(progress='1', true, false)) AS successProj, ((sum(IF(progress='1', true, false))/sum(IF(sts_project_eng='2', true, false)))*100) as rateSuccess FROM project_eng  
-      GROUP BY id_eng) AS proj ON v_engineer.id_eng = proj.ideng WHERE id_eng LIKE ? `, [`%`+idEng+`%`], (err, result) => {
+      GROUP BY id_eng) AS proj ON v_engineer.id_eng = proj.ideng WHERE id_eng LIKE ? `, ['%' + idEng + '%'], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -93,7 +93,7 @@ module.exports = {
   },
   findEngBySkill: (skillEng) => {
     return new Promise((resolve, reject) => {
-      pool.query('SELECT * FROM v_engineer WHERE name_skill LIKE ? ', [`%`+skillEng+`%`], (err, result) => {
+      pool.query('SELECT * FROM v_engineer WHERE name_skill LIKE ? ', ['%' + skillEng + '%'], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -116,7 +116,7 @@ module.exports = {
   findEngineerByIdUser: (idUser) => {
     return new Promise((resolve, reject) => {
       id_user = `${idUser}`
-      pool.query('SELECT * FROM engineer WHERE id_user = ?', [id_user], (err,result) => {
+      pool.query('SELECT * FROM engineer WHERE id_user = ?', [id_user], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -128,7 +128,7 @@ module.exports = {
   findEngByUserName: (userName) => {
     return new Promise((resolve, reject) => {
       user = `${userName}`
-      pool.query('SELECT * FROM v_engineer WHERE username = ?', [user], (err,result) => {
+      pool.query('SELECT * FROM v_engineer WHERE username = ?', [user], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -147,6 +147,6 @@ module.exports = {
         }
       })
     })
-  },
-  
+  }
+
 }

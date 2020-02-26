@@ -6,7 +6,7 @@ const { response } = require('../helpers/helpers')
 module.exports = {
   addShowcase: (req, res) => {
     const { id_eng, url, description } = req.body
-    const data =  {
+    const data = {
       id_eng,
       url,
       description
@@ -14,13 +14,13 @@ module.exports = {
     showcaseModel.addSkill(data)
       .then(result => {
         result = {
-          Msg: "Submit data successfully!"
+          Msg: 'Submit data successfully!'
         }
         response(res, 200, result)
       })
       .catch(err => {
         err = {
-          Msg: "Submit data failed!"
+          Msg: 'Submit data failed!'
         }
         response(res, 400, err)
       })
@@ -32,7 +32,7 @@ module.exports = {
       })
       .catch(err => {
         err = {
-          Msg: "Data not found!"
+          Msg: 'Data not found!'
         }
         response(res, 400, err)
       })
@@ -40,39 +40,39 @@ module.exports = {
   updateShowcase: (req, res) => {
     const showcaseId = req.params.showcaseId
     const { url, description } = req.body
-    const data= {
+    const data = {
       url,
       description
     }
     showcaseModel.updateShowcase(data, showcaseId)
       .then(result => {
         result = {
-          Msg: "Update data successfully!"
+          Msg: 'Update data successfully!'
         }
         response(res, 200, result)
       })
       .catch(err => {
         err = {
-          Msg: "Update data failed!"
+          Msg: 'Update data failed!'
         }
         response(res, 400, err)
       })
   },
-  deleteShowcase: (req,res) => {
+  deleteShowcase: (req, res) => {
     const showcaseId = req.params.showcaseId
-    
+
     showcaseModel.deleteShowcase(showcaseId)
-    .then(result => {
-      result = {
-        Msg: "Delete data successfully!"
-      }
-      response(res, 200, result)
-    })
-    .catch(err => {
-      err = {
-        Msg: "Delete data failed!"
-      }
-      response(res, 400, err)
-    })
+      .then(result => {
+        result = {
+          Msg: 'Delete data successfully!'
+        }
+        response(res, 200, result)
+      })
+      .catch(err => {
+        err = {
+          Msg: 'Delete data failed!'
+        }
+        response(res, 400, err)
+      })
   }
 }

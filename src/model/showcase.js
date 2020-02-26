@@ -25,12 +25,12 @@ module.exports = {
   },
   updateShowcase: (data, showcaseId) => {
     return new Promise((resolve, reject) => {
-      pool.query('UPDATE showcase SET ? WHERE id_showcase = ?', [data, showcaseId], (err, result)=> {
+      pool.query('UPDATE showcase SET ? WHERE id_showcase = ?', [data, showcaseId], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
           reject(new Error(err))
-        }  
+        }
       })
     })
   },
@@ -44,5 +44,5 @@ module.exports = {
         }
       })
     })
-  },
+  }
 }

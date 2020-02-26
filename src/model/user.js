@@ -25,12 +25,12 @@ module.exports = {
   },
   updateUsers: (data, userId) => {
     return new Promise((resolve, reject) => {
-      pool.query('UPDATE user SET ? WHERE id_user= ?', [data, userId], (err, result)=> {
+      pool.query('UPDATE user SET ? WHERE id_user= ?', [data, userId], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
           reject(new Error(err))
-        }  
+        }
       })
     })
   },

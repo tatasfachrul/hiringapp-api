@@ -6,5 +6,5 @@ const { addHire } = require('../controller/hire')
 Route
   .post('/', addHire)
   .get('/', addHire)
-  
+
 module.exports = Route

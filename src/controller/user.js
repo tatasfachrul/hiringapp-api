@@ -11,12 +11,11 @@ module.exports = {
   getUsers: (req, res) => {
     userModel.getUsers()
       .then(result => {
-
-        for (let i=0; i<result.length; i++) {
+        for (let i = 0; i < result.length; i++) {
           delete result[i].password
           delete result[i].tokenUse
         }
-        
+
         response(res, 200, result)
       })
       .catch(err => {
@@ -26,10 +25,10 @@ module.exports = {
   addUsers: (req, res) => {
     const { username, password, email, name, level } = req.body
 
-    const hash = bcrypt.hashSync(password, 10);
-    const idUser = uuid();
+    const hash = bcrypt.hashSync(password, 10)
+    const idUser = uuid()
 
-    const data =  {
+    const data = {
       id_user: idUser,
       username,
       password: hash,
@@ -39,12 +38,12 @@ module.exports = {
       level,
       tokenUse: null,
       createdAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
-      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
     }
     userModel.addUsers(data)
       .then(result => {
         result = {
-          Msg: "Submit user data successful!"
+          Msg: 'Submit user data successful!'
         }
         response(res, 200, result)
       })
@@ -55,19 +54,19 @@ module.exports = {
   updateUsers: (req, res) => {
     const userId = req.params.userId
     const { username, password, name, email, level } = req.body
-    const hash = bcrypt.hashSync(password, 10);
-    const data= {
+    const hash = bcrypt.hashSync(password, 10)
+    const data = {
       username,
       password: hash,
       name,
       email,
       level,
-      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+      updatedAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
     }
     userModel.updateUsers(data, userId)
       .then(result => {
         result = {
-          Msg: "Update user data successful!"
+          Msg: 'Update user data successful!'
         }
         response(res, 200, result)
       })
@@ -75,35 +74,34 @@ module.exports = {
         response(res, 400, err)
       })
   },
-  deleteUsers: (req,res) => {
+  deleteUsers: (req, res) => {
     const userId = req.params.userId
-    
+
     userModel.deleteUsers(userId)
-    .then(result => {
-      result = {
-        Msg: "Delete user data successful!"
-      }
-      response(res, 200, result)
-    })
-    .catch(err => {
-      response(res, 200, err)
-    })
+      .then(result => {
+        result = {
+          Msg: 'Delete user data successful!'
+        }
+        response(res, 200, result)
+      })
+      .catch(err => {
+        response(res, 200, err)
+      })
   },
   findUsers: (req, res) => {
     const userId = req.params.userId
 
     userModel.findUsers(userId)
-    .then(result => {
-      
-      for (let i=0; i<result.length; i++) {
-        delete result[i].password
-        delete result[i].tokenUse
-      }
+      .then(result => {
+        for (let i = 0; i < result.length; i++) {
+          delete result[i].password
+          delete result[i].tokenUse
+        }
 
-      response(res, 200, result)
-    })
-    .catch(err => {
-      response(res, 400, err)
-    })
+        response(res, 200, result)
+      })
+      .catch(err => {
+        response(res, 400, err)
+      })
   }
 }
