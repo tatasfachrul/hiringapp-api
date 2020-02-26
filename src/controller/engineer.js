@@ -30,6 +30,7 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
+        console.log(err)
         err = { Msg: 'Failed input to database!' }
         response(res, 400, err)
       })

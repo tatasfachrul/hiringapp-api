@@ -19,6 +19,7 @@ module.exports = {
         response(res, 200, result)
       })
       .catch(err => {
+        console.log(err)
         err = {
           Msg: 'Submit data failed!'
         }
