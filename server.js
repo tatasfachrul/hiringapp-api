@@ -6,12 +6,13 @@ const { response } = require('./src/helpers/helpers')
 const route = require('./src/index')
 const PORT = process.env.PORT
 const express = require('express')
-// const cloudinaryConfig = require('./src/config/cloudinary');
+const helmet = require('helmet')
 var cors = require('cors')
 
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: false }))
 server.use(morgan('dev'))
+server.use(helmet())
 server.use(cors())
 
 server.listen(PORT, () => {
