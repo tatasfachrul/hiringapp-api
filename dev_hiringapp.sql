@@ -487,7 +487,7 @@ CREATE TABLE `v_project` (
 --
 DROP TABLE IF EXISTS `v_company`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`godzilla`@`localhost` SQL SECURITY DEFINER VIEW `v_company`  AS  select `b`.`id_user` AS `id_user`,`b`.`username` AS `username`,`b`.`email` AS `email`,`b`.`name` AS `name`,`b`.`status` AS `status`,`b`.`level` AS `level`,`a`.`id_company` AS `id_company`,`a`.`name` AS `name_company`,`a`.`logo` AS `logo`,`a`.`location` AS `location`,`a`.`description` AS `description` from (`user` `b` join `company` `a` on((`a`.`id_user` = `b`.`id_user`))) where (`b`.`level` = '1') ;
+CREATE VIEW `v_company`  AS  select `b`.`id_user` AS `id_user`,`b`.`username` AS `username`,`b`.`email` AS `email`,`b`.`name` AS `name`,`b`.`status` AS `status`,`b`.`level` AS `level`,`a`.`id_company` AS `id_company`,`a`.`name` AS `name_company`,`a`.`logo` AS `logo`,`a`.`location` AS `location`,`a`.`description` AS `description` from (`user` `b` join `company` `a` on((`a`.`id_user` = `b`.`id_user`))) where (`b`.`level` = '1') ;
 
 -- --------------------------------------------------------
 
@@ -496,7 +496,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`godzilla`@`localhost` SQL SECURITY DEFINER V
 --
 DROP TABLE IF EXISTS `v_engineer`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`godzilla`@`localhost` SQL SECURITY DEFINER VIEW `v_engineer`  AS  select `a`.`id_eng` AS `id_eng`,`a`.`name_eng` AS `name_eng`,`a`.`id_user` AS `id_user`,`d`.`username` AS `username`,`d`.`email` AS `email`,`a`.`dob` AS `dob`,`a`.`location` AS `location`,`a`.`no_hp` AS `no_hp`,`a`.`photo` AS `photo`,`a`.`job` AS `job`,`a`.`showcase` AS `showcase`,group_concat(`c`.`name_skill` separator ',') AS `name_skill`,`a`.`createdAt` AS `createdAt`,`a`.`updatedAt` AS `updatedAt` from (((`engineer` `a` left join `skill_eng` `b` on((`a`.`id_eng` = `b`.`id_eng`))) left join `skill` `c` on((`c`.`id_skill` = `b`.`id_skill`))) left join `user` `d` on((`a`.`id_user` = `d`.`id_user`))) group by `a`.`id_eng` ;
+CREATE VIEW `v_engineer`  AS  select `a`.`id_eng` AS `id_eng`,`a`.`name_eng` AS `name_eng`,`a`.`id_user` AS `id_user`,`d`.`username` AS `username`,`d`.`email` AS `email`,`a`.`dob` AS `dob`,`a`.`location` AS `location`,`a`.`no_hp` AS `no_hp`,`a`.`photo` AS `photo`,`a`.`job` AS `job`,`a`.`showcase` AS `showcase`,group_concat(`c`.`name_skill` separator ',') AS `name_skill`,`a`.`createdAt` AS `createdAt`,`a`.`updatedAt` AS `updatedAt` from (((`engineer` `a` left join `skill_eng` `b` on((`a`.`id_eng` = `b`.`id_eng`))) left join `skill` `c` on((`c`.`id_skill` = `b`.`id_skill`))) left join `user` `d` on((`a`.`id_user` = `d`.`id_user`))) group by `a`.`id_eng` ;
 
 -- --------------------------------------------------------
 
@@ -505,7 +505,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`godzilla`@`localhost` SQL SECURITY DEFINER V
 --
 DROP TABLE IF EXISTS `v_engineerrr`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`godzilla`@`localhost` SQL SECURITY DEFINER VIEW `v_engineerrr`  AS  select `a`.`id_eng` AS `id_eng`,`a`.`name_eng` AS `name_eng`,`a`.`id_user` AS `id_user`,`d`.`username` AS `username`,`d`.`email` AS `email`,`a`.`dob` AS `dob`,`a`.`location` AS `location`,`a`.`no_hp` AS `no_hp`,`a`.`photo` AS `photo`,`a`.`job` AS `job`,`a`.`showcase` AS `showcase`,group_concat(`c`.`name_skill` separator ',') AS `name_skill`,`a`.`createdAt` AS `createdAt`,`a`.`updatedAt` AS `updatedAt` from (((`engineer` `a` left join `skill_eng` `b` on((`a`.`id_eng` = `b`.`id_eng`))) left join `skill` `c` on((`c`.`id_skill` = `b`.`id_skill`))) left join `user` `d` on((`a`.`id_user` = `d`.`id_user`))) group by `a`.`id_eng` ;
+CREATE VIEW `v_engineerrr`  AS  select `a`.`id_eng` AS `id_eng`,`a`.`name_eng` AS `name_eng`,`a`.`id_user` AS `id_user`,`d`.`username` AS `username`,`d`.`email` AS `email`,`a`.`dob` AS `dob`,`a`.`location` AS `location`,`a`.`no_hp` AS `no_hp`,`a`.`photo` AS `photo`,`a`.`job` AS `job`,`a`.`showcase` AS `showcase`,group_concat(`c`.`name_skill` separator ',') AS `name_skill`,`a`.`createdAt` AS `createdAt`,`a`.`updatedAt` AS `updatedAt` from (((`engineer` `a` left join `skill_eng` `b` on((`a`.`id_eng` = `b`.`id_eng`))) left join `skill` `c` on((`c`.`id_skill` = `b`.`id_skill`))) left join `user` `d` on((`a`.`id_user` = `d`.`id_user`))) group by `a`.`id_eng` ;
 
 -- --------------------------------------------------------
 
@@ -514,7 +514,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`godzilla`@`localhost` SQL SECURITY DEFINER V
 --
 DROP TABLE IF EXISTS `v_project`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`godzilla`@`localhost` SQL SECURITY DEFINER VIEW `v_project`  AS  select `a`.`id_project` AS `id_project`,`a`.`id_user` AS `id_user`,`a`.`id_company` AS `id_company`,`c`.`name` AS `name`,`d`.`username` AS `username`,`a`.`project_name` AS `project_name`,`a`.`description` AS `description`,`a`.`period` AS `period`,`a`.`deadline` AS `deadline`,`a`.`status` AS `status`,`b`.`id_project_eng` AS `id_project_eng`,`b`.`id_eng` AS `id_eng`,`e`.`name_eng` AS `name_eng`,`b`.`fee` AS `fee`,`b`.`project_job` AS `project_job`,`b`.`sts_project_eng` AS `sts_project_eng`,`b`.`progress` AS `progressEng`,`a`.`createdAt` AS `createProj`,`a`.`updatedAt` AS `updateProj`,`b`.`createdAt` AS `createProjEng`,`b`.`updatedAt` AS `updateProjEng` from ((((`project` `a` left join `project_eng` `b` on((`a`.`id_project` = `b`.`id_project`))) left join `company` `c` on((`a`.`id_company` = `c`.`id_company`))) left join `user` `d` on((`a`.`id_user` = `d`.`id_user`))) left join `engineer` `e` on((`b`.`id_eng` = `e`.`id_eng`))) ;
+CREATE VIEW `v_project`  AS  select `a`.`id_project` AS `id_project`,`a`.`id_user` AS `id_user`,`a`.`id_company` AS `id_company`,`c`.`name` AS `name`,`d`.`username` AS `username`,`a`.`project_name` AS `project_name`,`a`.`description` AS `description`,`a`.`period` AS `period`,`a`.`deadline` AS `deadline`,`a`.`status` AS `status`,`b`.`id_project_eng` AS `id_project_eng`,`b`.`id_eng` AS `id_eng`,`e`.`name_eng` AS `name_eng`,`b`.`fee` AS `fee`,`b`.`project_job` AS `project_job`,`b`.`sts_project_eng` AS `sts_project_eng`,`b`.`progress` AS `progressEng`,`a`.`createdAt` AS `createProj`,`a`.`updatedAt` AS `updateProj`,`b`.`createdAt` AS `createProjEng`,`b`.`updatedAt` AS `updateProjEng` from ((((`project` `a` left join `project_eng` `b` on((`a`.`id_project` = `b`.`id_project`))) left join `company` `c` on((`a`.`id_company` = `c`.`id_company`))) left join `user` `d` on((`a`.`id_user` = `d`.`id_user`))) left join `engineer` `e` on((`b`.`id_eng` = `e`.`id_eng`))) ;
 
 --
 -- Indexes for dumped tables
