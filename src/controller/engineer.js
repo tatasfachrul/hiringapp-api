@@ -158,6 +158,7 @@ module.exports = {
       })
       .catch(err => {
         console.log(err)
+        response(res, 400, 'Something goes Wrong!')
       })
   },
   findEngByUserName: (req, res) => {

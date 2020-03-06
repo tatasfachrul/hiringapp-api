@@ -55,7 +55,6 @@ LEFT JOIN
         if (!err) {
           resolve(result)
         } else {
-          console.log(err)
           reject(new Error(err))
         }
       })
