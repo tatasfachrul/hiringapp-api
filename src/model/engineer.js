@@ -23,13 +23,39 @@ module.exports = {
       })
     })
   },
-  getEngineer: () => {
+  getEngineer: (search, pagination) => {
+    console.log(search)
+    let paginationRole = ''
+    if (pagination.limit > 0) paginationRole = `LIMIT ${pagination.offset}, ${pagination.limit}`
+
+    console.log(paginationRole)
     return new Promise((resolve, reject) => {
-      pool.query(`SELECT * FROM v_engineer LEFT JOIN (SELECT id_eng as ideng, sum(IF(sts_project_eng='2', true, false)) AS totalProj, sum(IF(progress='1', true, false)) AS successProj, ((sum(IF(progress='1', true, false))/sum(IF(sts_project_eng='2', true, false)))*100) as rateSuccess FROM project_eng  
-      GROUP BY id_eng) AS proj ON v_engineer.id_eng = proj.ideng`, (err, result) => {
+      pool.query(`SELECT engineer.id_eng,
+      engineer.name_eng AS name,
+      engineer.job,
+      engineer.name_skill AS skill,
+      project.totalProject,
+      project.successProject,
+      project.rateSuccess,
+      engineer.id_user,
+      engineer.username,
+      engineer.email,
+      engineer.dob,
+      engineer.location,
+      engineer.photo,
+      engineer.showcase
+FROM v_engineer AS engineer
+LEFT JOIN
+ (SELECT id_eng AS ideng,
+         sum(IF(sts_project_eng='2', TRUE, FALSE)) AS totalProject,
+         sum(IF(progress='1', TRUE, FALSE)) AS successProject,
+         ((sum(IF(progress='1', TRUE, FALSE))/sum(IF(sts_project_eng='2', TRUE, FALSE)))*100) AS rateSuccess
+  FROM project_eng
+  GROUP BY id_eng) AS project ON engineer.id_eng = project.ideng WHERE engineer.name_eng LIKE '%${search.searchName}%' AND engineer.name_skill LIKE '%${search.searchSkill}%' ${paginationRole}`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
+          console.log(err)
           reject(new Error(err))
         }
       })
@@ -142,6 +168,18 @@ module.exports = {
       pool.query(`SELECT * FROM v_engineer WHERE name_skill LIKE '%${skillName}%' OR  name_eng LIKE '%${skillName}%' OR job LIKE '%${skillName}%' `, (err, result) => {
         if (!err) {
           resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
+  countEngineer: () => {
+    return new Promise((resolve, reject) => {
+      pool.query('SELECT COUNT(*) count FROM v_engineer', (err, result) => {
+        console.log(result)
+        if (!err) {
+          resolve(result[0].count)
         } else {
           reject(new Error(err))
         }

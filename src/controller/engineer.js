@@ -5,8 +5,6 @@ const engModel = require('../model/engineer')
 const { response } = require('../helpers/helpers')
 const jwtDecode = require('jwt-decode')
 const moment = require('moment')
-const { uploader } = require('../config/cloudinary')
-const { dataUri } = require('../helpers/multer')
 
 module.exports = {
   addEngineer: (req, res) => {
@@ -63,9 +61,20 @@ module.exports = {
   },
 
   getEngineer: async (req, res) => {
-    await engModel.getEngineer()
+    const searchName = req.query.name || ''
+    const searchSkill = req.query.skill || ''
+
+    const page = parseInt(req.query.page) < 0 ? 0 : parseInt(req.query.page) - 1 || 0
+    const limit = parseInt(req.query.limit) || 25
+    const offset = page === 1 ? 0 : (limit * page)
+
+    const count = await engModel.countEngineer()
+    console.log(count)
+    const totalPage = Math.ceil(count / limit)
+
+    await engModel.getEngineer({ searchName, searchSkill }, { limit, offset })
       .then(results => {
-        response(res, 200, results)
+        response(res, 200, results, { page, limit, count, totalPage })
       })
       .catch(err => {
         response(res, 400, err)
