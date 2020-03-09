@@ -10,7 +10,7 @@ module.exports = {
     result.result = data
 
     if (_.isEmpty(pagination)) {
-      return null
+      return res.status(result.status).json(result)
     } else {
       result.page = pagination.page + 1
       result.limit = pagination.limit
