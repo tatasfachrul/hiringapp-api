@@ -15,9 +15,9 @@ module.exports = {
 
     try {
       const UserData = await loginModel.getUsername(data.username)
-      const result = await validateLogin(res, data, UserData)
-      console.log(result.result)
-      response(res, 200, result)
+      await validateLogin(res, data, UserData)
+      // console.log(result.result)
+      // response(res, 200, result)
     } catch (error) {
       console.log(error)
       response(res, 400, error)

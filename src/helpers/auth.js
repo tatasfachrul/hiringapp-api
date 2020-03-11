@@ -7,7 +7,7 @@ const loginModel = require('../model/login')
 const moment = require('moment')
 
 module.exports = {
-  validateLogin: (res, reqData, UserData) => {
+  validateLogin: async (res, reqData, UserData) => {
     if (UserData.length !== 0) {
       const passFromReq = reqData.password
       const passFromSql = UserData[0].password
@@ -24,12 +24,13 @@ module.exports = {
           { expiresIn: process.env.JWT_EXP }
         )
         const updateDt = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+        const dataCompany = await loginModel.getCompany(UserData[0].id_user)
 
         loginModel.saveToken(tokenDb, UserData[0].id_user, updateDt)
 
         return response(res, 200, {
-          success: true,
-          message: 'Authentication successful!',
+          idUser: UserData[0].id_user,
+          idCompany: dataCompany[0].id_company,
           token: tokenDb,
           level: UserData[0].level
         })

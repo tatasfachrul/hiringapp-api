@@ -44,6 +44,14 @@ module.exports = {
         }
       })
     })
+  },
+  getCompany: (idUser) => {
+    return new Promise((resolve, reject) => {
+      pool.query('SELECT * FROM company WHERE id_user = ?', idUser, (error, result) => {
+        if (!error) resolve(result)
+        reject(new Error(error))
+      })
+    })
   }
 
 }
