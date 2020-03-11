@@ -30,7 +30,7 @@ module.exports = {
 
         return response(res, 200, {
           idUser: UserData[0].id_user,
-          idCompany: dataCompany[0].id_company,
+          idCompany: dataCompany[0].id_company || null,
           token: tokenDb,
           level: UserData[0].level
         })
