@@ -25,12 +25,13 @@ module.exports = {
         )
         const updateDt = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
         const dataCompany = await loginModel.getCompany(UserData[0].id_user)
-
+        console.log(dataCompany)
+        const idCompany = dataCompany.length !== 0 ? dataCompany[0].id_company : null
         loginModel.saveToken(tokenDb, UserData[0].id_user, updateDt)
 
         return response(res, 200, {
           idUser: UserData[0].id_user,
-          idCompany: dataCompany[0].id_company || null,
+          idCompany,
           token: tokenDb,
           level: UserData[0].level
         })
