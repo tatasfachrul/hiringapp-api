@@ -26,5 +26,8 @@ server.get('/', (req, res) => {
 
 server.use('/', route)
 server.use('/uploads', express.static('src/uploads'))
+server.use((req, res, next) => {
+  res.status(404).sendFile(path.join(__dirname, '/pages/index.html'))
+})
 
 module.exports = server
